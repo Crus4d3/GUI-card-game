@@ -1,3 +1,9 @@
+import random
+
+from deck import Deck
+from player import Player
+from cpu import Cpu
+
 class Game:
     def __init__(self):
         self.battleTurn=1
@@ -27,7 +33,7 @@ class Game:
         while mulligan.lower() in mulligans and self.mulligan<7:
             self.mulligan+=1
             comp.hand=[]
-            deck.drawCards(
+            self.deck.drawCards(
                     comp,
                     7-self.mulligan,
                     self.discardedCardsMap[self.mulligan],
@@ -52,34 +58,34 @@ class Game:
         return playerName
 
     def battleStart(self):
-        print("\nYour first opponent is {0}.".format(cpu.name))
+        print("\nYour first opponent is {0}.".format(self.cpu.name))
         if self.turnIncrement % 2 == 0:
             print("You will be going first.")
         else:
             print("You will be going second")
         print("\nYou have 20 health and 5 mana. \nYour starting hand is:")
-        self.printHand(player)
-        self.mulliganHand(player)
+        self.printHand(self.player)
+        self.mulliganHand(self.player)
 
     def turnStart(self, regeneratedMana):
-        if player.health<1:
+        if self.player.health<1:
             self.battleEnd=True
             self.playerWin=False
         print("\nIt is now your turn.")
         if regeneratedMana==False:
             print("You regenerate 3 mana and draw a card.")
-            player.mana+=3
-            deck.drawCards(player, 1, player.discardedCards)
-        print("You have", player.health, "health and", player.mana, "mana.")
+            self.player.mana+=3
+            self.deck.drawCards(self.player, 1, self.player.discardedCards)
+        print("You have", self.player.health, "health and", self.player.mana, "mana.")
         print("\nYour hand is:")
-        self.printHand(player)
+        self.printHand(self.player)
 
     def playerAction(self):
         action = input("\nType (x) to examine a card, (c) to cast a card or (?) for help.\n")
         if action in ['x', 'X', 'examine', 'Examine', 'EXAMINE']:
-            self.examineCard(player)
+            self.examineCard(self.player)
         if action in ['c', 'C', 'cast', 'Cast', 'CAST']:
-            self.castCard(player, cpu)
+            self.castCard(self.player, self.cpu)
         if action in ['?', 'h', 'H', 'help', 'Help', 'HELP']:
             self.helpMenu()
         if action in ['q', 'Q', 'quit', 'Quit', 'QUIT']:
@@ -108,19 +114,19 @@ class Game:
         self.battleEnd=True
         self.playerWin=False
 
-    def cpuTurn(self, cpuRegeneratedMana):
-        if cpu.health<1:
+    def cpuTurn(self, cpuRegenMana):
+        if self.cpu.health<1:
             self.battleEnd=True
             self.playerWin=True
         else:
-            print("\nIt is now {0}'s turn.".format(cpu.name))
-            if cpuRegeneratedMana==False:
-                print("{0} regenerates 3 mana.".format(cpu.name))
-                cpu.mana+=3
-            print(cpu.name, "now has", cpu.health, "health and", cpu.mana, "mana.\n")
-            card=random.randint(0,len(cpu.hand)-1)
-            #print("hand size is", len(cpu.hand), "chosen card is", card)
-            cpu.hand[card].cast(cpu, player)
+            print("\nIt is now {0}'s turn.".format(self.cpu.name))
+            if cpuRegenMana==False:
+                print("{0} regenerates 3 mana.".format(self.cpu.name))
+                self.cpu.mana+=3
+            print(self.cpu.name, "now has", self.cpu.health, "health and", self.cpu.mana, "mana.\n")
+            card=random.randint(0,len(self.cpu.hand)-1)
+            #print("hand size is", len(self.cpu.hand), "chosen card is", card)
+            self.cpu.hand[card].cast(self.cpu, self.player)
             self.battleTurn+=1
 
     def battleEnding(self):
@@ -129,3 +135,26 @@ class Game:
             print("You win")
         else:
             print("You lost")
+
+    def main(self):
+        playerRegenMana=False
+        cpuRegenMana=False
+        while self.battleEnd==False:
+            while self.turnIncrement % 2 == 0:
+                self.turnStart(playerRegenMana)
+                self.playerAction()
+                playerRegenMana=True
+                cpuRegenMana=False
+            while self.turnIncrement % 2 == 1:
+                self.cpuTurn(cpuRegenMana)
+                cpuRegenMana=True
+                playerRegenMana=False
+        self.battleEnding()
+
+    def initGame(self):
+        self.deck = Deck(self)
+        cpuName = "Lord Grendlefist"
+        self.playerName = self.welcomeMessages()
+        self.cpuName = "Lord Grendlefist"
+        self.player = Player(self.playerName, self)
+        self.cpu = Cpu(cpuName, self)
