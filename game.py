@@ -22,9 +22,19 @@ class Game:
                 }
         self.numDiscardedCards=0
 
-    def printHand(self, comp):
-        for i in range(0, len(comp.hand)):
-            print(comp.hand[i].cardName)
+    def initGame(self):
+        self.deck = Deck(self)
+        cpuName = "Lord Grendlefist"
+        self.cpu = Cpu(cpuName, self)
+        playerName = self.welcomeMessages()
+        self.player = Player(playerName, self)
+
+    def welcomeMessages(self):
+        print("Welcome brave traveller to the unforgiving land of the Card open")
+        print("It is a battleground where the strongest of foes pit their wits against each other.")
+        print("All in the hopes to be crowned world card champion!")
+        playerName = input("What is your name brave traveller?\n")
+        return playerName
 
     def mulliganHand(self, comp):
         print("\nType (m) to mulligan your hand and draw a new one,or (s) to skip.")
@@ -49,13 +59,6 @@ class Game:
                 mulligan=input()
             else:
                 mulligan='No'
-
-    def welcomeMessages(self):
-        print("Welcome brave traveller to the unforgiving land of the Card open")
-        print("It is a battleground where the strongest of foes pit their wits against each other.")
-        print("All in the hopes to be crowned world card champion!")
-        playerName = input("What is your name brave traveller?\n")
-        return playerName
 
     def battleStart(self):
         print("\nYour first opponent is {0}.".format(self.cpu.name))
@@ -82,18 +85,25 @@ class Game:
 
     def playerAction(self):
         action = input("\nType (x) to examine a card, (c) to cast a card or (?) for help.\n")
-        if action in ['x', 'X', 'examine', 'Examine', 'EXAMINE']:
+        if action.lower() in ['x', 'examine']:
             self.examineCard(self.player)
-        if action in ['c', 'C', 'cast', 'Cast', 'CAST']:
+        if action.lower() in ['c', 'cast']:
             self.castCard(self.player, self.cpu)
-        if action in ['?', 'h', 'H', 'help', 'Help', 'HELP']:
+        if action.lower() in ['?', 'h', 'help']:
             self.helpMenu()
-        if action in ['q', 'Q', 'quit', 'Quit', 'QUIT']:
+        if action.lower() in ['q', 'quit']:
             self.quit()
 
     def examineCard(self, comp):
-        print("Which card do you want to examine type 1 -", len(comp.hand))
-        card = int(input())-1
+        goodInput = False
+        while goodInput == False:
+            print("Which card do you want to examine type 1 -", len(comp.hand))
+            card = input()
+            try:
+                card = int(card)
+                goodInput = True
+            except:
+                goodInput = False
         print("The card in your hand is {}.".format(comp.hand[card].cardName),
                 "It costs {} mana to use.".format(comp.hand[card].cost))
         print("It inflicts {} damage when cast.".format(comp.hand[card].damage))
@@ -101,8 +111,15 @@ class Game:
             print("The card text reads: {0}".format(comp.hand[card].cardText))
 
     def castCard(self, caster, target):
-        print("Which card do you want to cast type 1 -", len(caster.hand))
-        card = int(input())-1
+        goodInput = False
+        while goodInput == False:
+            print("Which card do you want to cast type 1 -", len(caster.hand))
+            card = input()
+            try:
+                card = int(card)
+                goodInput = True
+            except:
+                goodInput = False
         caster.hand[card].cast(caster, target)
 
     def helpMenu(self):
@@ -110,9 +127,11 @@ class Game:
 
     def quit(self):
         print("Quitting game")
-        self.turnIncrement=1
-        self.battleEnd=True
-        self.playerWin=False
+        quit()
+
+    def printHand(self, comp):
+        for i in range(0, len(comp.hand)):
+            print("[{}] {}".format(i+1, comp.hand[i].cardName))
 
     def cpuTurn(self, cpuRegenMana):
         if self.cpu.health<1:
@@ -150,11 +169,3 @@ class Game:
                 cpuRegenMana=True
                 playerRegenMana=False
         self.battleEnding()
-
-    def initGame(self):
-        self.deck = Deck(self)
-        cpuName = "Lord Grendlefist"
-        self.playerName = self.welcomeMessages()
-        self.cpuName = "Lord Grendlefist"
-        self.player = Player(self.playerName, self)
-        self.cpu = Cpu(cpuName, self)
