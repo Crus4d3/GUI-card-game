@@ -40,6 +40,8 @@ class Game:
         print("\nType (m) to mulligan your hand and draw a new one,or (s) to skip.")
         mulligan=input()
         mulligans = [ 'm', 'mulligan', 'draw', 'redraw' ]
+        if mulligan.lower() in ['q', 'quit']:
+            self.quit()
         while mulligan.lower() in mulligans and self.mulligan<7:
             self.mulligan+=1
             comp.hand=[]
