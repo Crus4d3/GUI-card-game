@@ -26,11 +26,11 @@ def loadGame(args):
     def gui():
         try:
             from guiGame import Game
-        except:
-            print("Error gui mode not found, running text only mode")
+        except ImportError:
+            print("Error could not import gui mode, running in text mode \n")
             try:
                 text()
-            except:
+            except NameError:
                 print("Fatal error no game found \n\nYou have really messed things up haven't you >:(")
 
     if args.version:
@@ -40,7 +40,7 @@ def loadGame(args):
     if args.gui:
         gui()
     else:
-        pass
+        gui()
 
 def main():
     args = parseArgs()
