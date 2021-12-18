@@ -63,7 +63,7 @@ class Game:
                 mulligan='No'
 
     def battleStart(self):
-        print("\nYour first opponent is {0}.".format(self.cpu.name))
+        print("Your first opponent is {0}.".format(self.cpu.name))
         if self.turnIncrement % 2 == 0:
             print("You will be going first.")
         else:
