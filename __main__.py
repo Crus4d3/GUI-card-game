@@ -2,7 +2,7 @@
 
 import argparse
 
-from game import Game
+from textGame import Game
 
 def parseArgs():
     parser = argparse.ArgumentParser(description='Process command line arguments')
@@ -25,13 +25,22 @@ def loadGame(args):
 
     def gui():
         try:
+            import pygame
             from guiGame import Game
+            from window import Window
+            from assets import Assets
         except ImportError:
             print("Error could not import gui mode, running in text mode \n")
             try:
                 text()
             except NameError:
-                print("Fatal error no game found \n\nYou have really messed things up haven't you >:(")
+                print("Fatal error no game found \n")
+                print("You have really messed things up haven't you >:(")
+
+        def guiGameStart():
+            pygame.init()
+            game = Game(Window(), Assets())
+            game.mainMenu()
 
     if args.version:
         version()
