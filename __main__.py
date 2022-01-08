@@ -16,6 +16,7 @@ def loadGame(args):
         print("Version {}".format('0.3.0'))
         print("This project is still in active development")
         print("Visit https://github.com/crus4d3/gui-card-game for the latest version")
+        quit()
 
     def text():
         game = Game()
@@ -29,6 +30,7 @@ def loadGame(args):
             from guiGame import Game
             from window import Window
             from assets import Assets
+            guiGameStart()
         except ImportError:
             print("Error could not import gui mode, running in text mode \n")
             try:

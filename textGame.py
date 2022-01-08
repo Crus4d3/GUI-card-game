@@ -12,14 +12,14 @@ class Game:
         self.playerWin=False
         self.mulligan=0
         self.discardedCardsMap={
-                0:0,
-                1:7,
-                2:7+6,
-                3:7+6+5,
-                4:7+6+5+4,
-                5:7+6+5+4+3,
-                6:7+6+5+4+3+2,
-                }
+            0:0,
+            1:7,
+            2:7+6,
+            3:7+6+5,
+            4:7+6+5+4,
+            5:7+6+5+4+3,
+            6:7+6+5+4+3+2,
+        }
         self.numDiscardedCards=0
 
     def initGame(self):
@@ -37,7 +37,7 @@ class Game:
         return playerName
 
     def mulliganHand(self, comp):
-        print("\nType (m) to mulligan your hand and draw a new one,or (s) to skip.")
+        print("\nType (m) to mulligan your hand and draw a new one, or (s) to skip.")
         mulligan=input()
         mulligans = [ 'm', 'mulligan', 'draw', 'redraw' ]
         if mulligan.lower() in ['q', 'quit']:
@@ -54,10 +54,7 @@ class Game:
             print(comp.discardedCards)
             self.printHand(comp)
             if self.mulligan<6:
-                print(
-                    "\nType (m) to mulligan your hand and draw a new one,",
-                    "or (s) to skip.\n"
-                )
+                print("\nType (m) to mulligan your hand and draw a new one,", "or (s) to skip.")
                 mulligan=input()
             else:
                 mulligan='No'
@@ -102,7 +99,7 @@ class Game:
             print("Which card do you want to examine type 1 -", len(comp.hand))
             card = input()
             try:
-                card = int(card)
+                card = int(card) - 1
                 goodInput = True
             except:
                 goodInput = False
@@ -118,7 +115,7 @@ class Game:
             print("Which card do you want to cast type 1 -", len(caster.hand))
             card = input()
             try:
-                card = int(card)
+                card = int(card) - 1
                 goodInput = True
             except:
                 goodInput = False
@@ -139,6 +136,9 @@ class Game:
         if self.cpu.health<1:
             self.battleEnd=True
             self.playerWin=True
+            self.battleTurn+=1
+            self.turnIncrement+=1
+            # return self.battleEnd, self.playerWin
         else:
             print("\nIt is now {0}'s turn.".format(self.cpu.name))
             if cpuRegenMana==False:
@@ -156,16 +156,20 @@ class Game:
             print("You win")
         else:
             print("You lost")
+        quit()
 
     def main(self):
         playerRegenMana=False
         cpuRegenMana=False
         while self.battleEnd==False:
+            print("self.battleEnd:", self.battleEnd)
+            print("self.turnIncrement:", self.turnIncrement)
             while self.turnIncrement % 2 == 0:
                 self.turnStart(playerRegenMana)
                 self.playerAction()
                 playerRegenMana=True
                 cpuRegenMana=False
+            print("self.turnIncrement :", self.turnIncrement)
             while self.turnIncrement % 2 == 1:
                 self.cpuTurn(cpuRegenMana)
                 cpuRegenMana=True
