@@ -1,5 +1,9 @@
 import pygame
 
+from deck import Deck
+from cpu import Cpu
+from player import Player
+
 class Game():
     def __init__(self, window, assets):
         self.window = window
@@ -22,6 +26,14 @@ class Game():
 
     def initGame(self):
         self.toDraw = []
+        self.deck = Deck(self)
+        cpuName = "Lord Grendlefist"
+        self.cpu = Cpu(cpuName, self)
+        playerName = self.welcomeMessages()
+        self.player = Player(playerName, self)
+
+    def welcomeMessages(self):
+        return 'Bob'
 
     def main(self):
         while self.lost == False:

@@ -23,7 +23,6 @@ class Game:
         self.numDiscardedCards=0
 
     def initGame(self):
-        self.deck = Deck(self)
         cpuName = "Lord Grendlefist"
         self.cpu = Cpu(cpuName, self)
         playerName = self.welcomeMessages()
@@ -37,6 +36,8 @@ class Game:
         return playerName
 
     def mulliganHand(self, comp):
+        # This needs to be somehow moved into the actions class 
+        # This is because both front ends will need to use it
         print("\nType (m) to mulligan your hand and draw a new one, or (s) to skip.")
         mulligan=input()
         mulligans = [ 'm', 'mulligan', 'draw', 'redraw' ]

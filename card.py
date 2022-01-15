@@ -7,6 +7,9 @@ class Card:
         self.damage = damage
         self.game = game
 
+    def loadImg(self):
+        self.image = self.game.assets.cardImage
+
     def cast(self, caster, target):
         if caster.mana-self.cost>=0:
             print(caster.name, "has cast", self.cardName)

@@ -1,0 +1,58 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+Actions	actions.py	/^class Actions:$/;"	c
+Assets	assets.py	/^class Assets():$/;"	c
+Card	card.py	/^class Card:$/;"	c
+Cpu	cpu.py	/^class Cpu:$/;"	c
+Deck	deck.py	/^class Deck:$/;"	c
+Game	guiGame.py	/^class Game():$/;"	c
+Game	textGame.py	/^class Game:$/;"	c
+GameObject	gameObject.py	/^class GameObject:$/;"	c
+Player	player.py	/^class Player:$/;"	c
+Window	window.py	/^class Window():$/;"	c
+__init__	actions.py	/^    def __init__():$/;"	m	class:Actions
+__init__	assets.py	/^    def __init__(self):$/;"	m	class:Assets
+__init__	card.py	/^    def __init__(self, cardNum, name, cost, damage, cardText, game):$/;"	m	class:Card
+__init__	cpu.py	/^    def __init__(self, name, game):$/;"	m	class:Cpu
+__init__	deck.py	/^    def __init__(self, game):$/;"	m	class:Deck
+__init__	gameObject.py	/^    def __init__(self, x, y, width, height, image, game):$/;"	m	class:GameObject
+__init__	guiGame.py	/^    def __init__(self, window, assets):$/;"	m	class:Game
+__init__	player.py	/^    def __init__(self, name, game):$/;"	m	class:Player
+__init__	textGame.py	/^    def __init__(self):$/;"	m	class:Game
+__init__	window.py	/^    def __init__(self):$/;"	m	class:Window
+battleEnding	textGame.py	/^    def battleEnding(self):$/;"	m	class:Game
+battleStart	textGame.py	/^    def battleStart(self):$/;"	m	class:Game
+cast	card.py	/^    def cast(self, caster, target):$/;"	m	class:Card
+castCard	textGame.py	/^    def castCard(self, caster, target):$/;"	m	class:Game
+cpuTurn	textGame.py	/^    def cpuTurn(self, cpuRegenMana):$/;"	m	class:Game
+drawCards	deck.py	/^    def drawCards(self, comp, numCards, startingCard):$/;"	m	class:Deck
+drawFrame	window.py	/^    def drawFrame(self, game):$/;"	m	class:Window
+examineCard	textGame.py	/^    def examineCard(self, comp):$/;"	m	class:Game
+gui	__main__.py	/^    def gui():$/;"	f	function:loadGame	file:
+guiGameStart	__main__.py	/^        def guiGameStart():$/;"	f	function:loadGame.gui	file:
+helpMenu	textGame.py	/^    def helpMenu(self):$/;"	m	class:Game
+initGame	guiGame.py	/^    def initGame(self):$/;"	m	class:Game
+initGame	textGame.py	/^    def initGame(self):$/;"	m	class:Game
+loadGame	__main__.py	/^def loadGame(args):$/;"	f
+main	__main__.py	/^def main():$/;"	f
+main	guiGame.py	/^    def main(self):$/;"	m	class:Game
+main	guiStart.py	/^def main():$/;"	f
+main	textGame.py	/^    def main(self):$/;"	m	class:Game
+mainMenu	guiGame.py	/^    def mainMenu(self):$/;"	m	class:Game
+menuScreen	window.py	/^    def menuScreen(self, game):$/;"	m	class:Window
+mulliganHand	textGame.py	/^    def mulliganHand(self, comp):$/;"	m	class:Game
+parseArgs	__main__.py	/^def parseArgs():$/;"	f
+playerAction	textGame.py	/^    def playerAction(self):$/;"	m	class:Game
+printHand	textGame.py	/^    def printHand(self, comp):$/;"	m	class:Game
+quit	textGame.py	/^    def quit(self):$/;"	m	class:Game
+shuffleDeck	deck.py	/^    def shuffleDeck(self, comp):$/;"	m	class:Deck
+takeInput	guiGame.py	/^    def takeInput(self):$/;"	m	class:Game
+text	__main__.py	/^    def text():$/;"	f	function:loadGame	file:
+turnStart	textGame.py	/^    def turnStart(self, regeneratedMana):$/;"	m	class:Game
+version	__main__.py	/^    def version():$/;"	f	function:loadGame	file:
+welcomeMessages	textGame.py	/^    def welcomeMessages(self):$/;"	m	class:Game

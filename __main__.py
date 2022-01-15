@@ -16,7 +16,6 @@ def loadGame(args):
         print("Version {}".format('0.3.0'))
         print("This project is still in active development")
         print("Visit https://github.com/crus4d3/gui-card-game for the latest version")
-        quit()
 
     def text():
         game = Game()
@@ -25,6 +24,11 @@ def loadGame(args):
         game.main()
 
     def gui():
+        def guiGameStart():
+            pygame.init()
+            game = Game(Window(), Assets())
+            game.mainMenu()
+
         try:
             import pygame
             from guiGame import Game
@@ -39,13 +43,9 @@ def loadGame(args):
                 print("Fatal error no game found \n")
                 print("You have really messed things up haven't you >:(")
 
-        def guiGameStart():
-            pygame.init()
-            game = Game(Window(), Assets())
-            game.mainMenu()
-
     if args.version:
         version()
+        quit()
     if args.text:
         text()
     if args.gui:
